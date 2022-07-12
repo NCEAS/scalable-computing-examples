@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 df = pd.read_csv(snakemake.input[0])
-#df['date'] = pd.to_datetime(df.date)
+df['date'] = pd.to_datetime(df.date)
 
 var = 'numTempT'
 var_labs = {'numTempT': 'Temperature (deg C)'}
