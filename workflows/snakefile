@@ -16,11 +16,6 @@ def download_file(input, output):
 
     file_pairs = {filenames[i].text[:4]: urls[i].text for i in range(len(urls))}
 
-    #for yr in list(file_pairs.keys()):
-    #    resp = requests.get(file_pairs[yr])
-    #    #out = "data/" + yr + ".csv"
-    #    open(out, "wb").write(resp.content)
-
     yr = output[5:9]
 
     resp = requests.get(file_pairs[yr])
@@ -30,7 +25,9 @@ annual_files = expand("data/{year}.csv", year = years)
 
 rule all:
     input: 
-      "plots/temperature.png"
+      "plots/temperature.png",
+      "data_combined/full_climate.csv",
+      annual_files
 
 rule metadata:
     input: HTTP.remote("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A0b0a5a34-a950-4685-a6d1-76714116ac82", keep_local = True)
