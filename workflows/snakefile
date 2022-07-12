@@ -1,0 +1,21 @@
+years=[*range(1998, 2021)]
+
+rule all:
+    input: 
+        "plots/temperature.png"
+
+rule summarize:
+    input:
+       expand("data/{year}.csv", year = years)
+    output:
+        "data_combined/full_climate.csv"
+    script:
+        "scripts/summarize.py"
+
+rule plot:
+    input:
+       "data_combined/full_climate.csv"
+    output:
+        "plots/temperature.png"
+    script:
+        "scripts/plot.py"

@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# snakemake stuff 
+workflows/data
+workflows/data_combined
+workflows/plots
+workflows/.snakemake
