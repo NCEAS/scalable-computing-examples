@@ -8,9 +8,7 @@ years=[*range(1998, 2021)]
 
 
 def download_file(input, output):
-    #xmlresp = requests.get(snakemake.input[0])
 
-    #root = ET.fromstring(xmlresp.content)
     root = ET.parse(input)
 
     urls = root.findall("./dataset/dataTable/physical/distribution/online/url")

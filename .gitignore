@@ -133,3 +133,5 @@ workflows/data
 workflows/data_combined
 workflows/plots
 workflows/.snakemake
+workflows/dag*
+workflows/metadata.xml
