@@ -1,13 +1,12 @@
 from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
 import requests
 import xml.etree.ElementTree as ET
-import os
 
 HTTP = HTTPRemoteProvider()
 YEARS=[*range(1998, 2021)]
 
 
-def download_file(input, output):
+def parse_metadata(input, output):
     root = ET.parse(input)
 
     urls = root.findall("./dataset/dataTable/physical/distribution/online/url")
@@ -16,9 +15,7 @@ def download_file(input, output):
     file_pairs = {filenames[i].text[:4]: urls[i].text for i in range(len(urls))}
 
     yr = output[5:9]
-
-    resp = requests.get(file_pairs[yr])
-    open(output, "wb").write(resp.content)
+    open(output, "w+").write(file_pairs[yr])
 
 
 rule all:
@@ -34,13 +31,20 @@ rule metadata:
         shell("mv {input} {outputName}")
 
 
-rule download:
-    input: "metadata.xml"
-    output: path=expand("data/{year}.csv", year=YEARS)
-    run:
+rule parse:
+    input: "metadata.xml"    
+    output: path=expand("urls/{year}.txt", year = YEARS)
+    run: 
         for p in output.path:
-             download_file(input[0], p)
+            parse_metadata(input[0], p)
 
+rule download:
+    input: "urls/{year}.txt"    
+    output: "data/{year}.csv"
+    run: 
+        lines = open(input[0]).read()
+        resp = requests.get(lines)
+        open(output[0], "wb+").write(resp.content)
 
 rule summarize:
     input:
@@ -49,7 +53,6 @@ rule summarize:
         "data_combined/full_climate.csv"
     script:
         "scripts/summarize.py"
-
 
 rule plot:
     input:

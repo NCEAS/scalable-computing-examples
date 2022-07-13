@@ -132,6 +132,7 @@ dmypy.json
 workflows/data
 workflows/data_combined
 workflows/plots
+workflows/urls
 workflows/.snakemake
 workflows/dag*
 workflows/metadata.xml
