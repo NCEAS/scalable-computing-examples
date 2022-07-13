@@ -4,11 +4,10 @@ import xml.etree.ElementTree as ET
 import os
 
 HTTP = HTTPRemoteProvider()
-years=[*range(1998, 2021)]
+YEARS=[*range(1998, 2021)]
 
 
 def download_file(input, output):
-
     root = ET.parse(input)
 
     urls = root.findall("./dataset/dataTable/physical/distribution/online/url")
@@ -21,13 +20,11 @@ def download_file(input, output):
     resp = requests.get(file_pairs[yr])
     open(output, "wb").write(resp.content)
 
-annual_files = expand("data/{year}.csv", year = years)
 
 rule all:
-    input: 
-      "plots/temperature.png",
-      "data_combined/full_climate.csv",
-      annual_files
+    input:
+        "plots/temperature.png"
+
 
 rule metadata:
     input: HTTP.remote("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A0b0a5a34-a950-4685-a6d1-76714116ac82", keep_local = True)
@@ -38,19 +35,21 @@ rule metadata:
 
 
 rule download:
-    input: "metadata.xml"    
-    output: path=annual_files
-    run: 
+    input: "metadata.xml"
+    output: path=expand("data/{year}.csv", year=YEARS)
+    run:
         for p in output.path:
              download_file(input[0], p)
 
+
 rule summarize:
     input:
-       annual_files
+       expand("data/{year}.csv", year=YEARS)
     output:
         "data_combined/full_climate.csv"
     script:
         "scripts/summarize.py"
+
 
 rule plot:
     input:
