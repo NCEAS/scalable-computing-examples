@@ -1,0 +1,6 @@
+jupyterlab==3.4.3
+pdgraster @ git+https://github.com/PermafrostDiscoveryGateway/viz-raster.git@develop#egg=pdgraster
+pdgstaging @ git+https://github.com/PermafrostDiscoveryGateway/viz-staging.git@develop#egg=pdgstaging
+parsl==1.2.0
+matplotlib==3.5.1
+Rtree==0.9.7

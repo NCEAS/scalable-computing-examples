@@ -136,3 +136,7 @@ workflows/urls
 workflows/.snakemake
 workflows/dag*
 workflows/metadata.xml
+
+# group project stuff
+group-project/cesium
+group-project/example-data
