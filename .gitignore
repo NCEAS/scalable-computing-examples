@@ -140,3 +140,6 @@ workflows/metadata.xml
 # group project stuff
 group-project/cesium
 group-project/example-data
+group-project/staged-data
+group-project/staging_summary.csv
+group-project/runinfo
