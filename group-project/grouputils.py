@@ -40,7 +40,7 @@ def plot_tiles(stager):
 
     staged_files = stager.tiles.get_filenames_from_dir('staged')
 
-    if length(staged_files) > 91:
+    if len(staged_files) > 92:
         staged_files = staged_files[0:92]
         print(f'{len(staged_files)} are present. Only plotting the first 91 files.')
 
