@@ -141,5 +141,8 @@ workflows/metadata.xml
 group-project/cesium
 group-project/example-data
 group-project/staged
-group-project/staging_summary.csv
+group-project/*.csv
 group-project/runinfo
+group-project/config*
+group-project/geotiff
+group-project/web_tiles
