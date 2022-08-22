@@ -5,81 +5,84 @@ import matplotlib.pyplot as plt
 import geopandas as gpd
 import random
 
+
 def initialize_stager(dir_input):
     iwp_config = {
-        # The directory and file type of the input vector data the we want to stage
+        # The directory and file type of the input vector data
+        # that we want to stage
         'dir_input': dir_input,
         'ext_input': '.gpkg',
         # The path to the directory where we want the output tiles to be saved
         # (this will be created if it doesn't exist)
         'dir_staged': "staged",
-        # Set simplify_tolerance to None to disable polygon simplification (not needed)
         'simplify_tolerance': None
     }
 
-    # Create an instance of the TileStager class, which we can use to 
+    # Create an instance of the TileStager class, which we can use to
     iwp_stager = TileStager(iwp_config)
-    return(iwp_stager)
+    return iwp_stager
+
 
 def initialize_rasterizer(dir_input):
 
-
     # Here are the extra options we will use for rasterization
     iwp_config_raster = {
-
-         # The directory and file type of the input vector data the we want to stage
         'dir_input': dir_input,
         'ext_input': '.gpkg',
         # The path to the directory where we want the output tiles to be saved
         # (this will be created if it doesn't exist)
         'dir_staged': "staged",
-        # Set simplify_tolerance to None to disable polygon simplification (not needed)
         'simplify_tolerance': None,
 
         # Where two store the two formats of the output raster tiles
         'dir_geotiff': 'geotiff',
         'dir_web_tiles': 'web_tiles',
-        # We will calculate TWO statistics. Each statistic will result in a separate
+        # We will calculate TWO statistics.
+        #  Each statistic will result in a separate
         # band in the output GeoTIFF.
         'statistics': [
             {
-                # The first statistic will count the number of IWP that are located in
-                # each pixel in the output GeoTIFF.
+                # The first statistic will count the number of IWP
+                # that are located in each pixel in the output GeoTIFF.
                 'name': 'number_IWP_per_pixel',
                 'weight_by': 'count',
                 'property': 'centroids_per_pixel',
                 'aggregation_method': 'sum',
                 'resampling_method': 'sum',
-                'palette': ['rgb(102 51 153 / 0.0)', '#d93fce', 'lch(85% 100 85)'],
+                'palette': ['rgb(102 51 153 / 0.0)',
+                            '#d93fce',
+                            'lch(85% 100 85)'],
                 # Across ALL the data, the minimum number of polygons per pixel
-                # will always be zero, but the maximum will depend on the number of
-                # polygons in the input vector data, and the size of the pixel. It
-                # will be calculated dynamically.
+                # will always be zero, but the maximum will depend on the
+                # number of polygons in the input vector data, and the size of
+                #  the pixel. It will be calculated dynamically.
                 'val_range': [0, None]
             },
             {
-                # The second statistic will calculate the proportion of that each
-                # pixel in the GeoTIFF is covered by IWP.
+                # The second statistic will calculate the proportion
+                # of that each pixel in the GeoTIFF is covered by IWP.
                 'name': 'prop_pixel_covered_by_IWP',
                 'weight_by': 'area',
                 'property': 'area_per_pixel_area',
                 'aggregation_method': 'sum',
                 'resampling_method': 'average',
                 'palette': ['rgb(102 51 153 / 0.0)', 'lch(85% 100 85)'],
-                # Since we are calculating a proportion, the min and max proportion
-                # of a pixel that can be covered by IWP will be 0 and 1, respectively.
+                # Since we are calculating a proportion, the min and max
+                # proportion of a pixel that can be covered by IWP will be
+                # 0 and 1, respectively.
                 'val_range': [0, 1]
             }
         ],
     }
 
-    # Create an instance of the TileStager class, which we can use to 
+    # Create an instance of the TileStager class, which we can use to
     iwp_stager = RasterTiler(iwp_config_raster)
-    return(iwp_stager)
+    return (iwp_stager)
 
 
 def random_hex_color():
     return '#%06x' % random.randint(0, 0xFFFFFF)
+
 
 def plot_tiles(stager):
 
@@ -98,10 +101,9 @@ def plot_tiles(stager):
     staged_files = stager.tiles.get_filenames_from_dir('staged')
 
     if len(staged_files) > 45:
-        print(f'{len(staged_files)} are present. Only plotting the first 45 files.')
+        print(f'{len(staged_files)} are present.\
+             Only plotting the first 45 files.')
         staged_files = staged_files[0:46]
-        
-
 
     ax = None
     for tile in staged_files:
