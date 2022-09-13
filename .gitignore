@@ -146,3 +146,6 @@ group-project/runinfo
 group-project/config*
 group-project/geotiff
 group-project/web_tiles
+
+*.tif
+*.gpkg
