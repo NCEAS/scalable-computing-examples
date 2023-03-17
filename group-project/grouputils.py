@@ -31,11 +31,11 @@ def initialize_rasterizer(dir_input):
         'ext_input': '.gpkg',
         # The path to the directory where we want the output tiles to be saved
         # (this will be created if it doesn't exist)
-        'dir_staged': "staged",
+        'dir_staged': 'staged',
         'simplify_tolerance': None,
-
-        # Where two store the two formats of the output raster tiles
+        # Where to store the output raster tiles (.tif)
         'dir_geotiff': 'geotiff',
+        # Where to store the output web tiles (.png)
         'dir_web_tiles': 'web_tiles',
         # We will calculate TWO statistics.
         #  Each statistic will result in a separate
@@ -109,8 +109,8 @@ def plot_tiles(stager):
     for tile in staged_files:
         gdf = gpd.read_file(tile)
         if ax is None:
-            ax = gdf.plot(color=random_hex_color())
+            ax = gdf.plot(color=random_hex_color(), figsize=(11,11))
         else:
-            gdf.plot(ax=ax, color=random_hex_color())
+            gdf.plot(ax=ax, color=random_hex_color(), figsize=(11,11))
 
     plt.show()
