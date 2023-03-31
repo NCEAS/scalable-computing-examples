@@ -6,6 +6,7 @@ WORKDIR /home/scomp
 RUN apt update && apt -y install python3 pip virtualenvwrapper
 RUN groupadd -r scomp && useradd -r -g scomp scomp
 RUN mkdir -p /home/scomp && chown scomp.scomp /home/scomp
-#RUN pip install --no-cache-dir --upgrade -r requirements.txt
+COPY ./requirements.txt .
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 USER scomp:scomp
 CMD ["/bin/bash"]
