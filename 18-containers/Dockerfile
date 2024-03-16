@@ -1,12 +1,16 @@
 # Dockerfile for Scalable Computing Course
 # Build with:
-#     nerdctl build -t mycontainer:0.1 .
+#     docker build -t mycontainer:0.1 .
 FROM ubuntu:22.04
+SHELL ["/bin/bash", "-c"]
 WORKDIR /home/scomp
-RUN apt update && apt -y install python3 pip virtualenvwrapper
+RUN apt update && apt -y install python3 pip virtualenvwrapper vim nano iproute2
 RUN groupadd -r scomp && useradd -r -g scomp scomp
 RUN mkdir -p /home/scomp && chown scomp.scomp /home/scomp
-COPY ./requirements.txt .
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
 USER scomp:scomp
+RUN echo "source /usr/share/virtualenvwrapper/virtualenvwrapper.sh" >> /home/scomp/.bashrc
+COPY ./requirements.txt .
+RUN source /usr/share/virtualenvwrapper/virtualenvwrapper.sh && \
+	mkvirtualenv scomp && \
+	pip install --no-cache-dir --upgrade -r requirements.txt
 CMD ["/bin/bash"]
