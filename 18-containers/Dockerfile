@@ -12,5 +12,6 @@ RUN echo "source /usr/share/virtualenvwrapper/virtualenvwrapper.sh" >> /home/sco
 COPY ./requirements.txt .
 RUN source /usr/share/virtualenvwrapper/virtualenvwrapper.sh && \
 	mkvirtualenv scomp && \
-	pip install --no-cache-dir --upgrade -r requirements.txt
+	pip install --no-cache-dir --upgrade -r requirements.txt && \
+	echo "workon scomp" >> /home/scomp/.bashrc
 CMD ["/bin/bash"]
