@@ -1,1 +1,1 @@
-xarray
+xarray==2024.2.0
