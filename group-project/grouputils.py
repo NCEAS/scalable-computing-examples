@@ -87,7 +87,7 @@ def random_hex_color():
 def plot_tiles(stager):
 
     # set up plotting
-    plt.style.use('seaborn-notebook')
+    plt.style.use('seaborn-white')
     font_size = 4
     plt.rcParams['font.size'] = font_size
     plt.rcParams['axes.labelsize'] = font_size
@@ -109,8 +109,8 @@ def plot_tiles(stager):
     for tile in staged_files:
         gdf = gpd.read_file(tile)
         if ax is None:
-            ax = gdf.plot(color=random_hex_color(), figsize=(11,11))
+            ax = gdf.plot(color=random_hex_color(), figsize=(11, 11))
         else:
-            gdf.plot(ax=ax, color=random_hex_color(), figsize=(11,11))
+            gdf.plot(ax=ax, color=random_hex_color(), figsize=(11, 11))
 
     plt.show()
