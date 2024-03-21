@@ -12,9 +12,11 @@ ipykernel
 jupyter
 matplotlib
 numpy
-netCDF4 
+netCDF4
+nc-time-axis 
 pandas
 parsl
+gcsfs
 glances
 pyarrow
 pydantic>=1.10.9
