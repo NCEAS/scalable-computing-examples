@@ -1,6 +1,6 @@
-# Dockerfile for Scalable Computing Course
+# Dockerfile for ADC Scalable Computing Course
 # Build with:
-#     docker build -t mycontainer:0.1 .
+#     docker build -t adccourse:1.0 .
 FROM ubuntu:22.04
 SHELL ["/bin/bash", "-c"]
 WORKDIR /home/scomp
@@ -11,7 +11,6 @@ USER scomp:scomp
 RUN echo "source /usr/share/virtualenvwrapper/virtualenvwrapper.sh" >> /home/scomp/.bashrc
 COPY ./requirements.txt .
 RUN source /usr/share/virtualenvwrapper/virtualenvwrapper.sh && \
-	mkvirtualenv scomp && \
-	pip install --no-cache-dir --upgrade -r requirements.txt && \
-	echo "workon scomp" >> /home/scomp/.bashrc
-CMD ["/bin/bash"]
+        mkvirtualenv scomp && \
+        pip install --no-cache-dir --upgrade -r requirements.txt && \
+        echo "workon scomp" >> /home/scomp/.bashrc
