@@ -4,7 +4,7 @@
 FROM ubuntu:22.04
 SHELL ["/bin/bash", "-c"]
 WORKDIR /home/scomp
-RUN apt update && apt -y install python3 pip virtualenvwrapper vim nano iproute2
+RUN apt update && apt -y install python3 pip virtualenvwrapper vim nano iproute2 tree
 RUN groupadd -r scomp && useradd -r -g scomp scomp
 RUN mkdir -p /home/scomp && chown scomp.scomp /home/scomp
 USER scomp:scomp
