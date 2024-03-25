@@ -12,4 +12,4 @@ discharge_max = discharge_subset.groupby('river', as_index = False).max(numeric_
 plt.bar(discharge_max['river'], discharge_max['discharge'], color ='maroon', width = 0.4)
 plt.xlabel("River")
 plt.ylabel("Max discharge")
-plt.savefig("/var/data/adc-course/output/max-discharge.png")
+plt.savefig("/var/data/output/max-discharge.png")
