@@ -87,7 +87,7 @@ def random_hex_color():
 def plot_tiles(stager):
 
     # set up plotting
-    plt.style.use('seaborn-white')
+    # plt.style.use('seaborn-white')
     font_size = 4
     plt.rcParams['font.size'] = font_size
     plt.rcParams['axes.labelsize'] = font_size
