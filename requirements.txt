@@ -19,7 +19,7 @@ parsl
 gcsfs
 glances
 pyarrow
-pydantic>=1.10.9
+pydantic==1.10.9
 rasterio
 requests
 rioxarray
@@ -27,7 +27,7 @@ seaborn
 shapely
 skimpy
 xarray
-pdgraster @ git+https://github.com/PermafrostDiscoveryGateway/viz-raster.git@scalable-computing-course
+pdgraster @ git+https://github.com/PermafrostDiscoveryGateway/viz-raster.git@log-patch
 black
 poetry
 virtualenvwrapper
