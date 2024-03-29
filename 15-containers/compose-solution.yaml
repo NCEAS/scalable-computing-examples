@@ -1,0 +1,15 @@
+services:
+  web:
+    image: nginx
+    ports:
+      - 8000:80
+    volumes:
+      - ~/adc-course/web:/usr/share/nginx/html
+    depends_on:
+      - adccourse
+  adccourse:
+    image: adccourse:1.0
+    volumes:
+      - ~/adc-course:/var/data
+    command: [ "bash", "-i", "-c", "workon scomp && python /var/data/scripts/max-discharge.py && cp /var/data/output/max-discharge.png /var/data/web/max-discharge.png" ]
+
